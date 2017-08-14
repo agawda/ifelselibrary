@@ -12,6 +12,7 @@ public class Conditionals {
     private Supplier<String> parameterSupplier;
     private boolean condition;
     private Consumer<String> consumer;
+    private Supplier<Integer> thenReturnSupplier;
 
     static Consumer<String> doNothing() {
         return s -> {};
@@ -51,6 +52,10 @@ public class Conditionals {
 
     Conditionals then(Consumer<String> consumer) {
         return new Conditionals(parameterSupplier, condition, consumer);
+    }
+
+    public ConditionalsSupplier thenReturn(Supplier<Integer> supplier) {
+        return new ConditionalsSupplier(supplier, condition);
     }
 
     void orElse(Consumer<String> consumer) {

@@ -136,10 +136,25 @@ public class ConditionalsTest {
 
     @Test
     public void shouldReturnValueWhenTrue() {
-        int result = given(TestHelper::getAString)
+        String givenString = TestHelper.getAString();
+
+        int result = given(givenString)
                 .when(true)
-                .thenReturn(String::length)
-                .orElse(String::hashCode);
+                .thenReturn(givenString::length)
+                .orElse(givenString::hashCode);
+
         assertEquals(result, TestHelper.getAString().length());
+    }
+
+    @Test
+    public void shouldReturnValueWhenFalse() {
+        String givenString = TestHelper.getAString();
+
+        int result = given(givenString)
+                .when(false)
+                .thenReturn(givenString::length)
+                .orElse(givenString::hashCode);
+
+        assertEquals(result, givenString.hashCode());
     }
 }
